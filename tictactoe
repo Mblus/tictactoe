@@ -1,0 +1,179 @@
+'''
+Created on Nov 3, 2022
+Gavin Haroche
+
+Version 0.1, created 2d arrays for the game to take place on
+bugs: no functionality
+Version 0.5, created game structure via turns and layout
+bugs: no functionality
+Version 0.9, player can now place xs on the board and see them
+bugs: no random ai moves yet
+Version 1.0 Robot can now place 0s and win conditions added, along with documentation
+bugs: none
+Current Version 1.1 Added documentation
+bugs: none
+
+Function: Tic Tac Toe! play a game of connecting three of your pieces while stopping a computer from connecting three of their pieces.
+Bonuses: None
+
+Variables:
+
+List1 is the list that the player doesnt see that holds all of the data for the game to functon
+Childprint is a modified version of list1 that the player sees.
+Win is the reset indicator that resets the code along with determining who won.
+counter helps with tie games.
+
+Functions:
+SmartBotsMove tells the robot where it has to move.
+
+did_I_Win is the win checker.
+
+
+
+
+
+'''
+import random                                                                                                           #random number generator
+import time                                                                                                             #delay in the code
+#win checker
+def did_I_Win(list1, childprint):
+                                                                                                                        #this is the win checker, to see if x or 0 has won, every turn.
+    win = False
+                                                                                                                        #x horizontal
+    if list1[0][0] == "x" and list1[0][1]== "x" and list1[0][2] == "x" or list1[1][0]== "x" and list1[1][1]== "x" and list1[1][2] == "x" or list1[2][0]== "x" and list1[2][1]== "x" and list1[2][2] == "x":
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(childprint)
+        print("victory for x")
+        time.sleep(2)
+
+        win = True
+                                                                                                                        #x Vertical
+    if list1[0][0] == "x" and list1[1][0]== "x" and list1[2][0] == "x" or list1[0][1]== "x" and list1[1][1]== "x" and list1[2][1] == "x" or list1[0][2]== "x" and list1[1][2]== "x" and list1[2][2] == "x":
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(childprint)
+        print("victory for x")
+        win = True
+        time.sleep(2)
+                                                                                                                        #0 horizontal
+    if  list1[0][0] == "0" and list1[0][1] == "0" and list1[0][2] == "0" or list1[1][0] == "0" and list1[1][1] == "0" and list1[1][2] == "0" or list1[2][0] == "0" and list1[2][1] == "0" and list1[2][2] == "0":
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(childprint)
+        print("victory for 0")
+        win = True
+        time.sleep(2)
+                                                                                                                        #0 Vertical
+    if list1[0][0] == "0" and list1[1][0]== "0" and list1[2][0] == "0" or list1[0][1]== "0" and list1[1][1]== "0" and list1[2][1] == "0" or list1[0][2]== "0" and list1[1][2]== "0" and list1[2][2] == "0":
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(childprint)
+        print("victory for 0")
+        win = True
+        time.sleep(2)
+                                                                                                                        #x cross
+    if list1[0][0] == "x" and list1[1][1] == "x" and list1[2][2] == "x" or list1[0][2] == "x" and list1[1][1] == "x" and list1[2][0] == "x":
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(childprint)
+        print("victory for x")
+        win = True
+        time.sleep(2)
+                                                                                                                        #0 cross
+    if list1[0][0] == "0" and list1[1][1] == "0" and list1[2][2] == "0" or list1[0][2] == "0" and list1[1][1] == "0" and list1[2][0] == "0":
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(childprint)
+        print("victory for 0")
+        win = True
+        time.sleep(2)
+
+    return win
+#computer making a move
+def SmartBotsMove(list1):
+    x1=0
+    while x1 < 100:
+        random1 = random.randint(0, 2)                                                                                  #taking 2 random numbers
+        random2 = random.randint(0, 2)
+
+        if list1[random2][random1] == "-":                                                                              #placing only when there is a "-"
+             list1[random2][random1] = "0"
+             break
+
+        x1+=1
+    return list1
+#-----------------------------------------------------------------------------------------------------------------------#
+#-------------------------------------MAIN------------------------------------------------------------------------------#
+
+while True:
+                                                                                                                        #infinite loop
+
+
+    list1 = [["-", "-", "-"], ["-", "-", "-"], ["-", "-", "-"]]
+                                                                                                                        #beginning list
+    win1 = False
+                                                                                                                        #when win is true, it resets the game
+
+    while True:
+                                                                                                                        #try and except are error checkers, or end checkers
+        try:
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")                                                                       #formatting
+
+            childprint = list1[0][0] + "  /  " + list1[0][1] + "  /  " + list1[0][2] + "  /  \n" + list1[1][0]+ "  /  " + list1[1][1]+ "  /  " +list1[1][2]+ "  /  \n" +list1[2][0] + "  /  " +list1[2][1] +"  /  " + list1[2][2]+"  /  \n"
+                                                                                                                        #childprint means the version of the list that gets shown to the user.
+            print(childprint)
+
+            if did_I_Win(list1, childprint) == True:                                                                    #if the win is true, reset
+                time.sleep(2)                                                                                           #delay for 2 hours
+                break
+
+            input1 = int(input("enter your move [1 - 9 ], enter 'end' if you reach a tie to end the game"))
+
+            if input1 == "end":                                                                                         #end the code if the user says so
+                break
+
+            if 3 >= input1:                                                                                             #all of these if conditionals are so that the user can select 1-9 as a choice.
+                input1 = input1-1
+                if list1[0][input1] == "0":                                                                             #these sub conditionals are for placing, and making sure the user doesnt place on a taken space.
+                    continue
+                elif list1[0][input1] == "x":
+                    continue
+                else:
+                    list1[0][input1] = "x"
+
+            elif 6 >= input1 and 3 < input1:
+                    input1 = input1 - 4
+                    if list1[1][input1] == "0":
+
+                        continue
+                    elif list1[1][input1] == "x":
+
+                        continue
+                    else:
+                        list1[1][input1] = "x"
+
+            elif 9 >= input1 and 6 < input1:
+                    input1 = input1 - 7
+                    if list1[2][input1] == "0":
+
+                        continue
+                    elif list1[2][input1] == "x":
+
+                        continue
+                    else:
+                        list1[2][input1] = "x"
+
+            time.sleep(1)
+            print("placing")                                                                                            #timing for simplicity
+            time.sleep(1)
+
+                                                                                                                        #Re-asserting childprint for the purpose of the win checker and the smartbot
+            childprint = list1[0][0] + "  /  " + list1[0][1] + "  /  " + list1[0][2] + "  /  \n" + list1[1][0] + "  /  " + list1[1][1] + "  /  " + list1[1][2] + "  /  \n" + list1[2][0] + "  /  " + list1[2][1] + "  /  " + list1[2][2] + "  /  \n"
+            if did_I_Win(list1, childprint) == True:
+                time.sleep(2)
+                break
+
+
+            list1 = SmartBotsMove(list1)                                                                                #0 placement
+
+            continue                                                                                                    #Re looping
+
+        except:                                                                                                         #if an input is bad or if end is selected
+            print("bad input, or end has been selected, restarting")
+            time.sleep(3)
+            break
